@@ -1,0 +1,17 @@
+[package]
+name = "archimedes"
+version = "0.1.0"
+authors = ["Maud Spierings <->"]
+description = "A vim/nano esque terminal file editor"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+fs_node = { path = "../../kernel/fs_node" }
+path = { path = "../../kernel/path" }
+stdio = { path = "../../libs/stdio" }
+tty = { path = "../../kernel/tty" }
+root = { path = "../../kernel/root" }
+app_io = { path = "../../kernel/app_io" }
+task = { path = "../../kernel/task" }

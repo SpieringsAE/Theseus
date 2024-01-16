@@ -145,6 +145,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "archimedes"
+version = "0.1.0"
+dependencies = [
+ "app_io",
+ "fs_node",
+ "path",
+ "root",
+ "stdio",
+ "task",
+ "tty",
+]
+
+[[package]]
 name = "arm_boards"
 version = "0.1.0"
 dependencies = [
