@@ -161,6 +161,38 @@ impl Path {
         self.inner.starts_with('/')
     }
 
+	/// Returns `true` if the path points at an existing entity
+	pub fn exists(&self) -> bool {
+		if !self.is_absolute() {
+			return false;
+		}
+		self.get(root::get_root()).is_some()
+	}
+
+	/// Returns `true` if the path points at an existing file
+	pub fn is_file(&self) -> bool {
+		if !self.is_absolute() {
+			return false;
+		}
+		if let Some(file_or_dir) = self.get(root::get_root()) {
+			file_or_dir.is_file()
+		} else {
+			false
+		}
+	}
+
+	/// Returns `true` if the path points at an existing directory
+	pub fn is_dir(&self) -> bool {
+		if !self.is_absolute() {
+			return false;
+		}
+		if let Some(file_or_dir) = self.get(root::get_root()) {
+			file_or_dir.is_dir()
+		} else {
+			false
+		}
+	}
+
     /// Creates an owned [`PathBuf`] with `path` adjoined to `self`.
     ///
     /// If `path` is absolute, it replaces the current path.

@@ -6,35 +6,31 @@
 
 use alloc::{
 	vec::Vec,
-	string::String, borrow::ToOwned,
+	string::String,
 };
 use path::Path;
-use fs_node::FileOrDir;
 
 pub fn main(args: Vec<String>) -> isize {
-    if !args.is_empty() {
+	if !args.is_empty() {
+		let path: &Path = args[0].as_ref();
 		//create directories/files as the command argument specifies
-		if args[0].starts_with("/")	{
+		if path.is_absolute() {
 			todo!("search root");
 		} else {
-			let Ok(cwd) = task::with_current_task(|t| t.get_env().lock().working_dir.clone()) else {
+			let Ok(cwd) = task::with_current_task(|t| t.get_env().lock().working_dir.lock().get_absolute_path().clone()) else {
 				println!("failed to get current task");
 				return -1;
 			};
-			let path: &Path = args[0].as_ref();
-			match path.get(&cwd) {
-				Some(file_dir_enum) => {
-					match file_dir_enum {
-						FileOrDir::File(File) => {
-							todo!("load into buffer");
-						},
-						FileOrDir::Dir(dir) => {
-							todo!("at some point open file selector for now error?");
-						}
+			match path.relative(cwd.as_str()) {
+				Some(path) => {
+					if path.is_file() {
+						todo!("load into buffer");
+					} else if path .is_dir() {
+						todo!("at some point open file selector for now error?");
 					}
 				},
 				None => {
-					todo!("create new empty buffer, maybe validate if its a valid path, create file at save");
+					println!("something is wrong with the given path");
 				}
 			}
 		}
