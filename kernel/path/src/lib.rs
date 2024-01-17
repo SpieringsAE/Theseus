@@ -161,7 +161,14 @@ impl Path {
         self.inner.starts_with('/')
     }
 
-	/// Returns `true` if the path points at an existing entity
+	/// Returns `true` if the path points at an existing entity.
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::path::Path;
+    /// assert!(!Path::new("does_not_exist.txt").exists());
+    /// ```
 	pub fn exists(&self) -> bool {
 		if !self.is_absolute() {
 			return false;
@@ -169,7 +176,15 @@ impl Path {
 		self.get(root::get_root()).is_some()
 	}
 
-	/// Returns `true` if the path points at an existing file
+	/// Returns `true` if the path exists on disk and is pointing at a regular file.
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::path::Path;
+    /// assert_eq!(Path::new("./is_a_directory/").is_file(), false);
+    /// assert_eq!(Path::new("a_file.txt").is_file(), true);
+    /// ```
 	pub fn is_file(&self) -> bool {
 		if !self.is_absolute() {
 			return false;
@@ -181,7 +196,15 @@ impl Path {
 		}
 	}
 
-	/// Returns `true` if the path points at an existing directory
+	/// Returns `true` if the path exists on disk and is pointing at a directory.
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::path::Path;
+    /// assert_eq!(Path::new("./is_a_directory/").is_dir(), true);
+    /// assert_eq!(Path::new("a_file.txt").is_dir(), false);
+    /// ```
 	pub fn is_dir(&self) -> bool {
 		if !self.is_absolute() {
 			return false;
